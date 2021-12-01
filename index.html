@@ -10,29 +10,44 @@
 </head>
 
 <body>
+    <h1> <a href="index.html">Draw it <i  id="main__icon"class="fas fa-palette"></i> </a>  </h1>
     <canvas id="jsCanvas" class="canvas"></canvas>
     <div class="controls">
-        <div class="controls__range">
-            <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
-        </div>
         <div class="controls__btns">
             <button id="jsMode">Fill</button>
             <button id="jsSave">Save</button>
+            <button id="jsErase">Erase</button>
+            <button id="jsNote"><i class="far fa-sticky-note"></i></a></button>
+            
         </div>
+        
+            <div class="controls__range">
+                <i class="fas fa-paint-brush"></i> / <i class="fas fa-eraser"></i> &nbsp;&nbsp;<input type="range" id="jsRange" min="1" max="50" value="25"
+                    step="0.1" style="width:500px;" >
+            </div>
+
+        
+        
         <div class="controls__colors" id="jsColors">
             <div class="controls__color jsColor" style="background-color: #2c2c2c;"></div>
             <div class="controls__color jsColor" style="background-color: white;"></div>
-            <div class="controls__color jsColor" style="background-color: #ff3b30;"></div>
+            <div class="controls__color jsColor" style="background-color: #f5291e;"></div>
+            <div class="controls__color jsColor" style="background-color: #fc6146;"></div>
             <div class="controls__color jsColor" style="background-color: #FF9500;"></div>
+            <div class="controls__color jsColor" style="background-color: #fce279;"></div>
             <div class="controls__color jsColor" style="background-color: #FFCC00;"></div>
-            <div class="controls__color jsColor" style="background-color: #4CD964;"></div>
+            <div class="controls__color jsColor" style="background-color: #87ec43;"></div>
+            <div class="controls__color jsColor" style="background-color: #1a852c;"></div>
             <div class="controls__color jsColor" style="background-color: #5AC8FA;"></div>
             <div class="controls__color jsColor" style="background-color: #0579FF;"></div>
+            <div class="controls__color jsColor" style="background-color: #0d407a;"></div>
             <div class="controls__color jsColor" style="background-color: #5856D6;"></div>
+            <div class="controls__color jsColor" style="background-color: #ff7cae;"></div>
 
         </div>
     </div>
     <script src="app.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </body>
 
 </html>

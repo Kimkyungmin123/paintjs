@@ -4,6 +4,9 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
+const noteBtn = document.getElementById("jsNote");
+const eraseBtn = document.getElementById("jsErase");
+
 
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
@@ -11,8 +14,10 @@ const CANVAS_SIZE = 700;
 canvas.width = CANVAS_SIZE;
 canvas.height = CANVAS_SIZE;
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE); // 저장할 때 흰색 배경 갖게 됨. 없으면 투명배경으로 저장.
+
+
+ctx.fillStyle = "white"; // 저장할 때 흰색 배경 갖게 됨. 없으면 투명배경으로 저장.
+ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 ctx.strokeStyle = INITIAL_COLOR;
 ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = 2.5;
@@ -20,6 +25,8 @@ ctx.lineWidth = 2.5;
 
 let painting = false;
 let filling = false;
+let moding = false;
+
 
 function stopPainting() {
     painting = false;
@@ -32,6 +39,7 @@ function startPainting() {
 function onMouseMove(event) {
     const x = event.offsetX;
     const y = event.offsetY;
+
     if (!painting) {
         ctx.beginPath(); // 경로 생성
         ctx.moveTo(x, y); // 선 시작 좌표
@@ -41,6 +49,16 @@ function onMouseMove(event) {
         ctx.stroke(); // 선 그리기
 
     }
+
+
+
+}
+
+function onMouseMoveEraser(event) {
+    filling = false;
+    handleRangeChange(event)
+    ctx.strokeStyle = "white"; 
+    
 
 }
 
@@ -54,6 +72,8 @@ function handleRangeChange(event) {
     const size = event.target.value;
     ctx.lineWidth = size;
 }
+
+
 
 
 function handleModeClick() {
@@ -78,7 +98,7 @@ function handleCM(event) {
 }
 
 
-function handleSaveClick(){
+function handleSaveClick() {
     const image = canvas.toDataURL(); // default : png 
     const link = document.createElement("a");
     link.href = image;
@@ -86,11 +106,19 @@ function handleSaveClick(){
     link.click();
 }
 
+function clearCanvasClick() {
+    ctx.fillStyle = "white";
+    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+}
+
+
+
 if (canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
-    canvas.addEventListener("mousedown", startPainting);
-    canvas.addEventListener("mouseup", stopPainting);
-    canvas.addEventListener("mouseleave", stopPainting);
+    canvas.addEventListener("mousedown", startPainting); // mousedown: 마우스 버튼을 눌렀을 때
+    canvas.addEventListener("mouseup", stopPainting); // mouseup: 눌렀던 마우스 버튼을 떼었을 때
+    canvas.addEventListener("mouseleave", stopPainting); // mouseleave: 안에서 바깥으로 옮겼을 때
     canvas.addEventListener("click", handleCanvasClick);
     canvas.addEventListener("contextmenu", handleCM);
 
@@ -109,6 +137,14 @@ if (range) {
 if (mode) {
     mode.addEventListener("click", handleModeClick);
 }
-if (saveBtn){
+if (saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
+}
+
+if (noteBtn) {
+    noteBtn.addEventListener("click", clearCanvasClick);
+}
+
+if (eraseBtn) {
+    eraseBtn.addEventListener("click", onMouseMoveEraser);
 }
